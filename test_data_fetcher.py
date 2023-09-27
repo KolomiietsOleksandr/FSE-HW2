@@ -6,7 +6,7 @@ class TestCustomDataFetcher(unittest.TestCase):
         self.data_fetcher = CustomDataFetcher()
 
     def test_get_custom_data_from_url(self):
-        custom_data = self.data_fetcher.get_custom_data_from_url("https://example.com", 5)
+        custom_data = self.data_fetcher.get_custom_data_from_url("https://sef.podkolzin.consulting/api/users/lastSeen", 5)
         self.assertTrue(isinstance(custom_data, list))
 
 if __name__ == '__main__':
