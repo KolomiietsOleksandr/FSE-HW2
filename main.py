@@ -5,7 +5,15 @@ from translator import CustomTranslator
 
 if __name__ == "__main__":
     custom_base_url = "https://sef.podkolzin.consulting/api/users/lastSeen"
-    desired_custom_count = 217
+    while True:
+        try:
+            desired_custom_count = int(input("Enter the number of users you want to use: "))
+            if desired_custom_count > 0:
+                break
+            else:
+                print("The desired number of users must be greater than zero.")
+        except ValueError:
+            print("Enter the correct number.")
 
     custom_data_fetcher = CustomDataFetcher()
     custom_data = custom_data_fetcher.get_custom_data_from_url(custom_base_url, desired_custom_count)
