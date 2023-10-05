@@ -1,15 +1,24 @@
 import unittest
-from data_fetcher import CustomDataFetcher
+from unittest.mock import Mock, patch
+from data_fetcher import CustomDataFetcher  # Import your CustomDataFetcher class
 
 class TestCustomDataFetcher(unittest.TestCase):
-    def setUp(self):
-        self.data_fetcher = CustomDataFetcher()
+    @patch('data_fetcher.requests.get')
+    def test_get_custom_data_from_url_success(self, mock_requests_get):
+        # Create an instance of CustomDataFetcher
+        data_fetcher = CustomDataFetcher()
 
-    def test_get_custom_data_from_url(self):
-        custom_data = self.data_fetcher.get_custom_data_from_url("https://sef.podkolzin.consulting/api/users/lastSeen", 5)
-        self.assertTrue(isinstance(custom_data, list))
+        # Mock a successful HTTP response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"data": ["user1", "user2"]}'
+        mock_requests_get.return_value = mock_response
+
+        # Call the method under test
+        result = data_fetcher.get_custom_data_from_url("https://sef.podkolzin.consulting/api/users/lastSeen", 2)
+
+        # Assert that the method returns the expected data
+        self.assertEqual(result, ["user1", "user2"])
 
 if __name__ == '__main__':
     unittest.main()
-
-#python3 -m unittest test_data_fetcher.py
