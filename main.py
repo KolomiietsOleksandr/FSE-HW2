@@ -8,6 +8,7 @@ if __name__ == "__main__":
     while True:
         try:
             desired_custom_count = int(input("Enter the number of users you want to use: "))
+            max_offset = int(input("Enter max number of offset you want to use: "))
             if desired_custom_count > 0:
                 break
             else:
@@ -16,7 +17,7 @@ if __name__ == "__main__":
             print("Enter the correct number.")
 
     custom_data_fetcher = CustomDataFetcher()
-    custom_data = custom_data_fetcher.get_custom_data_from_url(custom_base_url, desired_custom_count)
+    custom_data = custom_data_fetcher.get_custom_data_from_url(custom_base_url, desired_custom_count, max_offset)
 
     custom_user_list_generator = CustomUserListGenerator()
     custom_users = custom_user_list_generator.get_custom_users(custom_data)
